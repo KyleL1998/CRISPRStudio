@@ -151,7 +151,10 @@ def fastaAlign(outFasta):
     try:
         print('Aligning the spacers with fasta36 aligner')
         path = os.path.dirname(os.path.realpath(sys.argv[0]))
-        subprocess.check_output(os.path.join(path, 'tools/fasta-36.3.8g/bin/fasta36') + ' -m ' + outfmt + ' ' + query + ' ' + subject + ' >' + outFile, shell=True)
+        if os.path.exists(os.path.join(path, 'tools/fasta-36.3.8g/')):
+            subprocess.check_output(os.path.join(path, 'tools/fasta-36.3.8g/bin/fasta36') + ' -m ' + outfmt + ' ' + query + ' ' + subject + ' >' + outFile, shell=True)
+        else:
+           subprocess.check_output(os.path.join(path, 'tools/bin/fasta36') + ' -m ' + outfmt + ' ' + query + ' ' + subject + ' >' + outFile, shell=True)
     except:
         try:
             subprocess.check_output('fasta36 -m '+outfmt +' '+  query + ' ' + subject + ' >'+outFile , shell=True)
